@@ -1,0 +1,77 @@
+{
+  "name": "vscode-quicky",
+  "displayName": "VSCode Quicky",
+  "description": "Quickly toggle reference CodeLens settings for JavaScript and TypeScript.",
+  "version": "0.0.1",
+  "publisher": "yildirim",
+  "engines": {
+    "vscode": "^1.84.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:quicky.toggleTypeScriptLens",
+    "onCommand:quicky.toggleJavaScriptLens"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "submenus": [
+      {
+        "id": "quicky.toggleLensSubmenu",
+        "label": "Referans CodeLens Ayarları",
+        "icon": {
+          "light": "resources/icon-light.svg",
+          "dark": "resources/icon-dark.svg"
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "quicky.toggleTypeScriptLens",
+        "title": "TypeScript Referans CodeLens",
+        "category": "Quicky",
+        "toggled": "quicky.typescriptLensEnabled"
+      },
+      {
+        "command": "quicky.toggleJavaScriptLens",
+        "title": "JavaScript Referans CodeLens",
+        "category": "Quicky",
+        "toggled": "quicky.javascriptLensEnabled"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "submenu": "quicky.toggleLensSubmenu",
+          "group": "navigation@99"
+        }
+      ],
+      "quicky.toggleLensSubmenu": [
+        {
+          "command": "quicky.toggleTypeScriptLens",
+          "group": "1_typescript",
+          "toggled": "quicky.typescriptLensEnabled"
+        },
+        {
+          "command": "quicky.toggleJavaScriptLens",
+          "group": "2_javascript",
+          "toggled": "quicky.javascriptLensEnabled"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "prepare": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.84.0",
+    "typescript": "^5.3.3",
+    "vsce": "^2.15.0"
+  }
+}
