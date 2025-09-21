@@ -1,14 +1,39 @@
 {
   "name": "vscode-quicky",
   "displayName": "VSCode Quicky",
-  "description": "Quickly toggle reference CodeLens settings for JavaScript and TypeScript.",
+  "description": "Toggle CodeLens references and custom VS Code settings directly from the editor title bar.",
   "version": "0.0.2",
-  "publisher": "yildirim",
+  "publisher": "sourcebound",
+  "author": "Sourcebound",
+  "icon": "res/brand.png",
+  "homepage": "https://github.com/yildirim/vscode-quicky#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yildirim/vscode-quicky.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yildirim/vscode-quicky/issues"
+  },
+  "keywords": [
+    "codelens",
+    "settings",
+    "javascript",
+    "typescript",
+    "references",
+    "workspace",
+    "quick toggle",
+    "productivity"
+  ],
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
   "engines": {
     "vscode": "^1.84.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Programming Languages"
   ],
   "activationEvents": [
     "onStartupFinished"
@@ -88,8 +113,8 @@
         "id": "quicky.dynamicSettingsSubmenu",
         "label": "Quicky Ayarları",
         "icon": {
-          "light": "resources/icon-light.svg",
-          "dark": "resources/icon-dark.svg"
+          "light": "res/icon-light.svg",
+          "dark": "res/icon-dark.svg"
         }
       }
     ],
@@ -98,8 +123,8 @@
         "command": "quicky.showSettingsMenu",
         "title": "Ayarları Yönet",
         "icon": {
-          "light": "resources/icon-light.svg",
-          "dark": "resources/icon-dark.svg"
+          "light": "res/icon-light.svg",
+          "dark": "res/icon-dark.svg"
         }
       }
     ],

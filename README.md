@@ -1,28 +1,33 @@
 # VSCode Quicky
 
-VSCode Quicky, Visual Studio Code içinde sık kullanılan ayarları editör başlığından hızlıca değiştirebilmeniz için hazırlanmış hafif bir eklentidir. Varsayılan olarak JavaScript ve TypeScript "references" CodeLens seçeneklerini sunar, ancak dilediğiniz kadar ek ayarı JSON tanımlarıyla menüye ekleyebilirsiniz.
+VSCode Quicky, Visual Studio Code editör başlığından CodeLens referanslarını ve seçtiğiniz diğer ayarları tek tıkla açıp kapatmanıza imkan tanıyan hafif ve hızlı bir eklentidir. JavaScript ve TypeScript projelerinde referans CodeLens satırlarını yönetirken aynı anda kendi özel ayarlarınızı da menüye ekleyebilirsiniz.
+
+## Öne çıkan özellikler
+- Tek tıkla `typescript.referencesCodeLens.enabled` ve `javascript.referencesCodeLens.enabled` değerlerini değiştirin.
+- Herhangi bir VS Code ayarını, özel seçenekleriyle birlikte dinamik menüye ekleyin.
+- Aktif dosya veya çalışma alanına göre doğru scope'ta (workspace, folder, user) ayar kaydı oluşturun.
+- Seçimlerinizin kaydını takip etmek için dahili çıktı panelini kullanın.
 
 ## Kurulum
+### VS Code Marketplace
+Eklentiyi yayınlandıktan sonra Marketplace üzerinden "VSCode Quicky" yazarak bulabilir ve **Install** butonuna tıklayabilirsiniz.
 
+### Manuel kurulum
 ```bash
 npm install
 npm run compile
 ```
 
-Ardından proje klasörünü VS Code ile açıp **Run and Debug** panelinden "Launch Extension" hedefini çalıştırarak eklentiyi deneyebilirsiniz.
+Ardından proje klasörünü VS Code ile açın ve **Run and Debug** panelinden "Launch Extension" hedefini çalıştırın.
 
-## Kullanım
-
-1. Herhangi bir dosyayı açın.
-2. Editör sekmesinin sağ üst köşesindeki Quicky ikonuna tıklayın.
-3. Açılan "Quicky Ayarları" menüsünden **Ayarları Yönet** komutunu seçin.
-4. İlk listeden düzenlemek istediğiniz ayarı, ikinci listeden de uygulanmasını istediğiniz seçeneği belirleyin.
-
-Seçiminiz anında geçerli olur ve uygun scope (klasör, workspace veya kullanıcı ayarları) altında saklanır.
+## Hızlı başlangıç
+1. Herhangi bir dosyayı açın ve editör sekmesinin sağ üst köşesindeki Quicky ikonuna tıklayın.
+2. Açılan "Quicky Ayarları" menüsünden **Ayarları Yönet** komutunu seçin.
+3. İlk listeden değiştirmek istediğiniz ayarı, ikinci listeden de uygulanacak değeri belirleyin.
+4. Seçiminiz anında yürürlüğe girer; uygun scope altında saklanır ve komut paletinden tekrar erişilebilir.
 
 ## Dinamik ayar tanımları
-
-Eklentinin `quicky.settingDefinitions` ayarı üzerinden bir veya daha fazla tanım ekleyebilirsiniz. Eklenti ilk çalıştığında, ayar boşsa workspace ayar dosyasına örnek bir kayıt yazar.
+Eklentinin `quicky.settingDefinitions` ayarı üzerinden dilediğiniz kadar tanım ekleyebilirsiniz. Eklenti ilk çalıştığında ayar boşsa workspace ayar dosyasına örnek bir kayıt yazar.
 
 Örnek içerik (`.vscode/settings.json`):
 
@@ -40,9 +45,17 @@ Eklentinin `quicky.settingDefinitions` ayarı üzerinden bir veya daha fazla tan
 ]
 ```
 
-- `id`: Değiştirmek istediğiniz ayarın tam anahtarı.
-- `label`: Menüde gösterilecek başlık.
-- `options`: Kullanıcıya sunulacak seçenekler. `value` alanı `string`, `number`, `boolean` ya da `null` olabilir.
+- `id`: Güncellemek istediğiniz ayarın tam anahtarı.
+- `label`: Menüde gösterilecek başlık (boş bırakılırsa `id` değeri kullanılır).
+- `options`: Kullanıcıya sunulacak seçenekler; `value` alanı `string`, `number`, `boolean` ya da `null` olabilir.
 - `defaultOptionValue`: Ayar tanımlanmamışsa kullanılacak varsayılan değer (isteğe bağlı).
 
 Birden fazla tanım ekleyebilirsiniz; aynı `id` değerine sahip son kayıt önceki tanımı geçersiz kılar.
+
+## İpuçları
+- Menüde görmeyi istemediğiniz ayarları `quicky.settingDefinitions` listesinden kaldırabilirsiniz.
+- Komutu klavyeden çalıştırmak için `Quicky: Ayarları Yönet` ifadesini komut paletinde aratabilirsiniz.
+- Çalışma alanınızda paylaşmak istemediğiniz ayar kombinasyonları için kullanıcı scope'unu tercih edebilirsiniz.
+
+## Katkıda bulunma
+Hata raporları, öneriler ve pull request'ler için [GitHub Issues](https://github.com/yildirim/vscode-quicky/issues) sayfasını kullanabilirsiniz. Yeni bir tanım örneği paylaşmak veya dokümantasyona katkıda bulunmak isterseniz lütfen bir issue açın.

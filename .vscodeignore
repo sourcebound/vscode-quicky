@@ -1,7 +1,17 @@
+# Workspace configuration and VCS metadata
 .vscode/**
 .git/**
+
+# Tests and tooling
 .vscode-test/**
-node_modules/**
+coverage/**
+workscene.config.json
+
+# Source files (compiled output lives in out/)
 src/**
 **/*.ts
 **/*.ts.map
+
+# Dependencies and packages
+node_modules/**
+*.vsix
