@@ -15,3 +15,18 @@ src/**
 # Dependencies and packages
 node_modules/**
 *.vsix
+# Exclude everything by default
+**/*
+
+# Include only the files required for the published extension
+!package.json
+!README.md
+!LICENSE
+!LICENSE.txt
+!out/**
+!res/**
+!res/logo.png
+
+**/.DS_Store
+PRD.md
+.dev-resources/

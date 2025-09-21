@@ -2,7 +2,7 @@
   "name": "vscode-quicky",
   "displayName": "VSCode Quicky",
   "description": "Toggle CodeLens references and any VS Code setting on/off from the editor title bar. Quick settings menu for JS/TS and more.",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "publisher": "sourcebound",
   "author": "Sourcebound",
   "icon": "res/logo.png",
