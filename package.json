@@ -1,171 +1,198 @@
 {
-	"name": "vscode-quicky",
-	"displayName": "VSCode Quicky",
-	"description": "Toggle CodeLens references and any VS Code setting on/off from the editor title bar. Quick settings menu for JS/TS and more.",
-	"version": "1.0.1",
-	"publisher": "sourcebound",
-	"author": "Sourcebound",
-	"icon": "res/brand.png",
-	"homepage": "https://github.com/sourcebound/vscode-quicky#readme",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/sourcebound/vscode-quicky.git"
-	},
-	"bugs": {
-		"url": "https://github.com/sourcebound/vscode-quicky/issues"
-	},
-	"keywords": [
-		"codelens",
-		"code-lens",
-		"codelens-references",
-		"toggle-codelens",
-		"disable-codelens",
-		"enable-codelens",
-		"settings",
-		"settings-toggle",
-		"quick-settings",
-		"editor-title-bar",
-		"editor-actions",
-		"workspace-settings",
-		"user-settings",
-		"settings-json",
-		"typescript",
-		"javascript",
-		"references",
-		"command-palette",
-		"configuration",
-		"quick-toggle",
-		"titlebar-button",
-		"productivity"
-	],
-	"galleryBanner": {
-		"color": "#1e1e1e",
-		"theme": "dark"
-	},
-	"license": "AGPL-3.0-only",
-	"engines": {
-		"vscode": "^1.84.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"qna": "marketplace",
-	"main": "./out/extension.js",
-	"contributes": {
-		"configuration": {
-			"title": "VSCode Quicky",
-			"properties": {
-				"quicky.settingDefinitions": {
-					"type": "array",
-					"default": [],
-					"markdownDescription": "Dinamik menüde görüntülenecek ayar tanımlarını belirtir. Her öğe VS Code ayar anahtarını ve seçilebilir seçenekleri tarif eder.",
-					"items": {
-						"type": "object",
-						"properties": {
-							"id": {
-								"type": "string",
-								"description": "Güncellenecek ayarın tam anahtarı."
-							},
-							"label": {
-								"type": "string",
-								"description": "Menüde gösterilecek başlık (boş bırakılırsa id kullanılır)."
-							},
-							"options": {
-								"type": "array",
-								"minItems": 1,
-								"items": {
-									"type": "object",
-									"properties": {
-										"value": {
-											"type": [
-												"string",
-												"number",
-												"boolean",
-												"null"
-											],
-											"description": "Ayar için yazılacak değer."
-										},
-										"label": {
-											"type": "string",
-											"description": "Kullanıcıya gösterilecek seçenek adı."
-										},
-										"description": {
-											"type": "string",
-											"description": "Seçenek hakkında kısa açıklama."
-										}
-									},
-									"required": [
-										"value"
-									],
-									"additionalProperties": false
-								},
-								"description": "Seçilebilir değerlerin listesi."
-							},
-							"defaultOptionValue": {
-								"type": [
-									"string",
-									"number",
-									"boolean",
-									"null"
-								],
-								"description": "Ayar tanımlanmamışsa kullanılacak varsayılan değer."
-							}
-						},
-						"required": [
-							"id",
-							"options"
-						],
-						"additionalProperties": false
-					}
-				}
-			}
-		},
-		"submenus": [
-			{
-				"id": "quicky.dynamicSettingsSubmenu",
-				"label": "Quicky Ayarları",
-				"icon": {
-					"light": "res/icon-light.svg",
-					"dark": "res/icon-dark.svg"
-				}
-			}
-		],
-		"commands": [
-			{
-				"command": "quicky.showSettingsMenu",
-				"title": "Ayarları Yönet",
-				"icon": {
-					"light": "res/icon-light.svg",
-					"dark": "res/icon-dark.svg"
-				}
-			}
-		],
-		"menus": {
-			"editor/title": [
-				{
-					"submenu": "quicky.dynamicSettingsSubmenu",
-					"group": "navigation@99"
-				}
-			],
-			"quicky.dynamicSettingsSubmenu": [
-				{
-					"command": "quicky.showSettingsMenu",
-					"group": "1_manage"
-				}
-			]
-		}
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"package": "vsce package",
-		"prepare": "npm run compile"
-	},
-	"devDependencies": {
-		"@types/node": "^18.18.14",
-		"@types/vscode": "^1.84.0",
-		"typescript": "^5.3.3",
-		"vsce": "^2.15.0"
-	}
+  "name": "vscode-quicky",
+  "displayName": "VSCode Quicky",
+  "description": "Toggle CodeLens references and any VS Code setting on/off from the editor title bar. Quick settings menu for JS/TS and more.",
+  "version": "1.2.1",
+  "publisher": "sourcebound",
+  "author": "Sourcebound",
+  "icon": "res/logo.png",
+  "homepage": "https://github.com/sourcebound/vscode-quicky#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sourcebound/vscode-quicky.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sourcebound/vscode-quicky/issues"
+  },
+  "keywords": [
+    "codelens",
+    "code-lens",
+    "codelens-references",
+    "toggle-codelens",
+    "disable-codelens",
+    "enable-codelens",
+    "settings",
+    "settings-toggle",
+    "quick-settings",
+    "editor-title-bar",
+    "editor-actions",
+    "workspace-settings",
+    "user-settings",
+    "settings-json",
+    "typescript",
+    "javascript",
+    "references",
+    "command-palette",
+    "configuration",
+    "quick-toggle",
+    "titlebar-button",
+    "productivity"
+  ],
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "license": "AGPL-3.0-only",
+  "engines": {
+    "vscode": "^1.84.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "qna": "marketplace",
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "VSCode Quicky",
+      "properties": {
+        "quicky.settingDefinitions": {
+          "type": "array",
+          "default": [],
+          "markdownDescription": "Dinamik menüde görüntülenecek ayar tanımlarını belirtir. Her öğe VS Code ayar anahtarını ve seçilebilir seçenekleri tarif eder.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Güncellenecek ayarın tam anahtarı."
+              },
+              "label": {
+                "type": "string",
+                "description": "Menüde gösterilecek başlık (boş bırakılırsa id kullanılır)."
+              },
+              "options": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": [
+                        "string",
+                        "number",
+                        "boolean",
+                        "null"
+                      ],
+                      "description": "Ayar için yazılacak değer."
+                    },
+                    "label": {
+                      "type": "string",
+                      "description": "Kullanıcıya gösterilecek seçenek adı."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Seçenek hakkında kısa açıklama."
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                },
+                "description": "Seçilebilir değerlerin listesi."
+              },
+              "defaultOptionValue": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ],
+                "description": "Ayar tanımlanmamışsa kullanılacak varsayılan değer."
+              }
+            },
+            "required": [
+              "id",
+              "options"
+            ],
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    "submenus": [
+      {
+        "id": "quicky.dynamicSettingsSubmenu",
+        "label": "Quicky Ayarları",
+        "icon": {
+          "light": "res/icon-light.svg",
+          "dark": "res/icon-dark.svg"
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "quicky.showSettingsMenu",
+        "title": "Ayarları Yönet",
+        "icon": {
+          "light": "res/icon-light.svg",
+          "dark": "res/icon-dark.svg"
+        }
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "submenu": "quicky.dynamicSettingsSubmenu",
+          "group": "navigation@99"
+        }
+      ],
+      "quicky.dynamicSettingsSubmenu": [
+        {
+          "command": "quicky.showSettingsMenu",
+          "group": "1_manage"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "package": "vsce package",
+    "prepare": "npm run compile",
+    "vscode:prepublish": "npm run compile",
+    "compile": "node esbuild.config.js",
+    "watch": "node esbuild.config.js --watch",
+    "format": "prettier --write \"{src,*.{json,md}}\"",
+    "format:check": "prettier --check \"{src,*.{json,md}}\"",
+    "lint": "node ./node_modules/eslint/bin/eslint.js --ext .ts src",
+    "lint:fix": "node ./node_modules/eslint/bin/eslint.js --ext .ts src --fix",
+    "l10n:extract": "vscode-l10n-dev export --outDir l10n \"src/**/*.ts\"",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config jest.config.ts",
+    "test:watch": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch --config jest.config.ts"
+  },
+  "devDependencies": {
+    "vsce": "^2.15.0",
+    "@jest/globals": "^30.1.2",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.19.17",
+    "@types/vscode": "^1.84.0",
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0",
+    "@vscode/l10n-dev": "^0.0.35",
+    "esbuild": "^0.25.10",
+    "esbuild-plugin-tsconfig-paths": "^1.0.1",
+    "eslint": "^9.35.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.4.0",
+    "jest": "^29.7.0",
+    "jest-util": "^29.7.0",
+    "prettier": "^3.6.2",
+    "ts-jest": "^29.4.3",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.6.2",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "@vscode/l10n": "^0.0.18"
+  }
 }

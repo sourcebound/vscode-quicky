@@ -1,0 +1,12 @@
+{
+  "{0}ms, [{1}] saveToDisk: size={2} bytes": "{0}ms, [{1}] saveToDisk: size={2} bytes",
+  "Görüntülenecek ayar bulunmuyor.": "Görüntülenecek ayar bulunmuyor.",
+  "Güncellemek istediğiniz ayarı seçin": "Güncellemek istediğiniz ayarı seçin",
+  "Şu anda seçili": "Şu anda seçili",
+  "[{0}] Ayar tanımı geçersiz (id: {1}).": "[{0}] Ayar tanımı geçersiz (id: {1}).",
+  "[{0}] Varsayılan tanımlar kaydedilemedi ({1}): {2}": "[{0}] Varsayılan tanımlar kaydedilemedi ({1}): {2}",
+  "[{0}] {1} ayarlarına varsayılan tanımlar eklendi.": "[{0}] {1} ayarlarına varsayılan tanımlar eklendi.",
+  "Aktif: {0}": "Aktif: {0}",
+  "Seçili değer tanımlı seçeneklerle eşleşmiyor": "Seçili değer tanımlı seçeneklerle eşleşmiyor",
+  "{0}: {1}": "{0}: {1}"
+}

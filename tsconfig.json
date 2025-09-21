@@ -1,16 +1,24 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "ES2020",
+    "lib": ["ES2020"],
     "module": "commonjs",
-    "lib": ["es2020"],
-    "moduleResolution": "node",
     "outDir": "out",
-    "sourceMap": true,
     "rootDir": "src",
     "strict": true,
+    "sourceMap": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["vscode", "node"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@type/*": ["./src/type/*"],
+      "@util/*": ["./src/util/*"],
+      "@model/*": ["./src/model/*"],
+      "@enumeration/*": ["./src/enumeration/*"]
+    }
   },
   "include": ["src"],
-  "exclude": ["node_modules", ".vscode-test"]
+  "exclude": ["node_modules"]
 }
