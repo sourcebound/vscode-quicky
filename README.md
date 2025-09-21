@@ -59,3 +59,7 @@ Birden fazla tanım ekleyebilirsiniz; aynı `id` değerine sahip son kayıt önc
 
 ## Katkıda bulunma
 Hata raporları, öneriler ve pull request'ler için [GitHub Issues](https://github.com/yildirim/vscode-quicky/issues) sayfasını kullanabilirsiniz. Yeni bir tanım örneği paylaşmak veya dokümantasyona katkıda bulunmak isterseniz lütfen bir issue açın.
+
+## Lisans
+Bu proje [GNU Affero General Public License v3.0](https://github.com/sourcebound/vscode-quicky/blob/HEAD/LICENSE) ile lisanslanmıştır.
+Kodu kendi projelerinizde kullanırken lisans koşullarını göz önünde bulundurmayı unutmayın.
