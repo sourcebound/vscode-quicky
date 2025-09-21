@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "basePath": "/Users/yildirim/github/vscode-quicky",
+    "createdAt": "2025-09-21T07:04:07.634Z",
+    "updatedAt": "2025-09-21T08:50:41.769Z",
+    "version": 1
+  },
+  "groups": [
+    {
+      "id": "c6b13162-7f19-4fa2-9d4b-a92b7172209e",
+      "name": "Grup",
+      "files": [
+        {
+          "rel": "src/extension.ts",
+          "kind": "file",
+          "tags": []
+        },
+        {
+          "rel": ".gitignore",
+          "kind": "file",
+          "tags": []
+        },
+        {
+          "rel": "resources/icon-dark.svg",
+          "kind": "file"
+        }
+      ],
+      "children": [
+        {
+          "id": "aec3caeb-4107-4a10-a975-0f38625856f6",
+          "name": "Grup",
+          "files": [],
+          "children": [],
+          "tags": [],
+          "iconId": "issue-closed"
+        },
+        {
+          "id": "ea176a8d-0fcc-4220-82ef-60761e9147f3",
+          "name": "0",
+          "files": [],
+          "children": [],
+          "tags": [],
+          "iconId": "issue-closed"
+        }
+      ],
+      "tags": [],
+      "iconId": "issue-closed"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "name": "vscode-quicky",
   "displayName": "VSCode Quicky",
   "description": "Quickly toggle reference CodeLens settings for JavaScript and TypeScript.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "yildirim",
   "engines": {
     "vscode": "^1.84.0"
@@ -11,16 +11,82 @@
     "Other"
   ],
   "activationEvents": [
-    "onStartupFinished",
-    "onCommand:quicky.toggleTypeScriptLens",
-    "onCommand:quicky.toggleJavaScriptLens"
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "VSCode Quicky",
+      "properties": {
+        "quicky.settingDefinitions": {
+          "type": "array",
+          "default": [],
+          "markdownDescription": "Dinamik menüde görüntülenecek ayar tanımlarını belirtir. Her öğe VS Code ayar anahtarını ve seçilebilir seçenekleri tarif eder.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Güncellenecek ayarın tam anahtarı."
+              },
+              "label": {
+                "type": "string",
+                "description": "Menüde gösterilecek başlık (boş bırakılırsa id kullanılır)."
+              },
+              "options": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": [
+                        "string",
+                        "number",
+                        "boolean",
+                        "null"
+                      ],
+                      "description": "Ayar için yazılacak değer."
+                    },
+                    "label": {
+                      "type": "string",
+                      "description": "Kullanıcıya gösterilecek seçenek adı."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Seçenek hakkında kısa açıklama."
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                },
+                "description": "Seçilebilir değerlerin listesi."
+              },
+              "defaultOptionValue": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ],
+                "description": "Ayar tanımlanmamışsa kullanılacak varsayılan değer."
+              }
+            },
+            "required": [
+              "id",
+              "options"
+            ],
+            "additionalProperties": false
+          }
+        }
+      }
+    },
     "submenus": [
       {
-        "id": "quicky.toggleLensSubmenu",
-        "label": "Referans CodeLens Ayarları",
+        "id": "quicky.dynamicSettingsSubmenu",
+        "label": "Quicky Ayarları",
         "icon": {
           "light": "resources/icon-light.svg",
           "dark": "resources/icon-dark.svg"
@@ -29,35 +95,25 @@
     ],
     "commands": [
       {
-        "command": "quicky.toggleTypeScriptLens",
-        "title": "TypeScript Referans CodeLens",
-        "category": "Quicky",
-        "toggled": "quicky.typescriptLensEnabled"
-      },
-      {
-        "command": "quicky.toggleJavaScriptLens",
-        "title": "JavaScript Referans CodeLens",
-        "category": "Quicky",
-        "toggled": "quicky.javascriptLensEnabled"
+        "command": "quicky.showSettingsMenu",
+        "title": "Ayarları Yönet",
+        "icon": {
+          "light": "resources/icon-light.svg",
+          "dark": "resources/icon-dark.svg"
+        }
       }
     ],
     "menus": {
       "editor/title": [
         {
-          "submenu": "quicky.toggleLensSubmenu",
+          "submenu": "quicky.dynamicSettingsSubmenu",
           "group": "navigation@99"
         }
       ],
-      "quicky.toggleLensSubmenu": [
+      "quicky.dynamicSettingsSubmenu": [
         {
-          "command": "quicky.toggleTypeScriptLens",
-          "group": "1_typescript",
-          "toggled": "quicky.typescriptLensEnabled"
-        },
-        {
-          "command": "quicky.toggleJavaScriptLens",
-          "group": "2_javascript",
-          "toggled": "quicky.javascriptLensEnabled"
+          "command": "quicky.showSettingsMenu",
+          "group": "1_manage"
         }
       ]
     }
@@ -70,6 +126,7 @@
     "prepare": "npm run compile"
   },
   "devDependencies": {
+    "@types/node": "^18.18.14",
     "@types/vscode": "^1.84.0",
     "typescript": "^5.3.3",
     "vsce": "^2.15.0"
