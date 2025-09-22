@@ -1,8 +1,9 @@
-import { ExtensionContext, window as vscWindow, workspace as vscWorkspace } from 'vscode'
+import { ExtensionContext, workspace as vscWorkspace } from 'vscode'
 import ExtensionManager from './manager'
 
 /**
- * @summary Eklentinin giriş noktası. Modüler yapıya ayrılmış sınıf ve yardımcıları
+ * Eklentinin giriş noktası.
+ * Modüler yapıya ayrılmış sınıf ve yardımcıları
  * buradan içe aktarılır, komutlar kaydedilir.
  */
 export async function activate(context: ExtensionContext): Promise<void> {
@@ -19,15 +20,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     await manager.configurationDidChange(event)
   })
 
-  /**
-   * @summary `onDidChangeActiveTextEditor` komutunu kaydeder.
-   * @description `onDidChangeActiveTextEditor` komutu, editör değiştiğinde çağrılır.
-   */
-  const editorListener = vscWindow.onDidChangeActiveTextEditor(() => {
-    void manager.activeResourceDidChange()
-  })
-
-  context.subscriptions.push(configurationListener, editorListener)
+  context.subscriptions.push(configurationListener)
   /** Aktivasyon sonu */
 }
 

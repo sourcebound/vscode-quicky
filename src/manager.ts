@@ -38,8 +38,9 @@ import {
 
 /**
  * ExtensionManager sınıfı, VSCode uzantısının ana yönetici sınıfıdır.
- * @description Bu sınıf, uzantının temel işlevlerini yönetir ve VSCode'un yapılandırma değişikliklerini izler.
+ * Uzantının temel işlevlerini yönetir ve VSCode'un yapılandırma değişikliklerini izler.
  * @implements {Disposable} Olay dinleme veya bir zamanlayıcı gibi kaynakları serbest bırakabilen bir türü temsil eder.
+ * @remarks VSCode API'si `ExtensionContext.subscriptions.push()` içinde yalnızca `Disposable` interface/protocol'üne uygun bir tür kabul ettiği için ve uzantı devre dışı bırakıldığında `dispose()` çağrısının otomatik tetiklenmesi gerektiğinden bu arayüz uygulanır.
  */
 export default class ExtensionManager implements Disposable {
   // #region Properties
@@ -72,6 +73,13 @@ export default class ExtensionManager implements Disposable {
    */
   private readonly outputChannel = vscWindow.createOutputChannel(EXTENSION_NAME)
 
+  // #region CommandIDs
+  /**
+   * Konfigürasyon anahtarı: `quicky.showSettingsMenu`
+   */
+  public static SHOW_SETTINGS_MENU_COMMAND_ID = makeCommandId('showSettingsMenu')
+  // #endregion CommandIDs
+
   // #endregion
 
   // #region Lifecycle
@@ -92,7 +100,7 @@ export default class ExtensionManager implements Disposable {
           void vscWindow.showInformationMessage(l10n.t('No settings available to display.'))
           return
         }
-        await this.showPicker()
+        await this.presentPicker()
       },
     )
 
@@ -113,9 +121,8 @@ export default class ExtensionManager implements Disposable {
   // #region Methods
 
   /**
-   * @summary Yapılandırmadaki değişikliği tanımlayan eventi ele alır.
+   * Yapılandırmadaki değişikliği tanımlayan eventi ele alır.
    * @param event Yapılandırmadaki değişikliği tanımlayan event.
-   * @returns
    */
   public async configurationDidChange(event: ConfigurationChangeEvent): Promise<void> {
     if (event.affectsConfiguration(CONFIGURATION_NAME)) {
@@ -158,10 +165,6 @@ export default class ExtensionManager implements Disposable {
     }
 
     await Promise.all(promises)
-  }
-
-  public async activeResourceDidChange(): Promise<void> {
-    await this.updateContext()
   }
 
   private async reload(force: boolean): Promise<void> {
@@ -245,72 +248,6 @@ export default class ExtensionManager implements Disposable {
     }
   }
 
-  private async showPicker(): Promise<void> {
-    const configuration = vscWorkspace.getConfiguration()
-
-    const items: DefinitionQuickPickItem[] = this.definitions.map((definition) => {
-      const inspect = configuration.inspect<unknown>(definition.id)
-      const currentValue = this.currentValueFor(definition, configuration, inspect)
-      const option = this.optionMatching(definition, currentValue, inspect)
-      return {
-        label: definition.label,
-        description: option ? l10n.t('Active: {0}', option.label) : undefined,
-        detail: option
-          ? undefined
-          : l10n.t('Selected value does not match any defined option'),
-        definition,
-      }
-    })
-
-    if (items.length === 0) {
-      void vscWindow.showInformationMessage(l10n.t('No settings available to display.'))
-      return
-    }
-
-    const picked = await vscWindow.showQuickPick(items, {
-      placeHolder: l10n.t('Select the setting you want to update'),
-    })
-
-    if (!picked) {
-      return
-    }
-
-    await this.showSubPicker(picked.definition)
-  }
-
-  private async showSubPicker(definition: SettingDefinition): Promise<void> {
-    const configuration = vscWorkspace.getConfiguration()
-    const inspect = configuration.inspect<unknown>(definition.id)
-    const currentValue = this.currentValueFor(definition, configuration, inspect)
-
-    const items: OptionQuickPickItem[] = definition.options.map((option) => {
-      const optionValue = this.coerceOptionValue(option.rawValue, inspect)
-      const isCurrent = areValuesEquivalent(currentValue, optionValue)
-      return {
-        label: option.label,
-        description: option.description,
-        picked: isCurrent,
-        detail: isCurrent ? l10n.t('Currently selected') : undefined,
-        option,
-      }
-    })
-
-    const selection = await vscWindow.showQuickPick(items, {
-      placeHolder: definition.label,
-    })
-
-    if (!selection) {
-      return
-    }
-
-    const selectedValue = this.coerceOptionValue(selection.option.rawValue, inspect)
-    if (areValuesEquivalent(currentValue, selectedValue)) {
-      return
-    }
-
-    await this.applyOptionSelection(definition, selection.option, inspect)
-  }
-
   private async applyOptionSelection(
     definition: SettingDefinition,
     option: SettingOptionDefinition,
@@ -369,12 +306,70 @@ export default class ExtensionManager implements Disposable {
     return coerceToMatchSample(value, sample)
   }
 
-  // #endregion Methods
+  // #region UI
+  private async presentPicker(): Promise<void> {
+    const configuration = vscWorkspace.getConfiguration()
 
-  // #region CommandIDs
-  /**
-   * Konfigürasyon anahtarı: `quicky.showSettingsMenu`
-   */
-  public static SHOW_SETTINGS_MENU_COMMAND_ID = makeCommandId('showSettingsMenu')
-  // #endregion CommandIDs
+    const items: DefinitionQuickPickItem[] = this.definitions.map((definition) => {
+      const inspect = configuration.inspect<unknown>(definition.id)
+      const currentValue = this.currentValueFor(definition, configuration, inspect)
+      const option = this.optionMatching(definition, currentValue, inspect)
+      return {
+        label: definition.label,
+        description: option ? l10n.t('Active: {0}', option.label) : undefined,
+        detail: option ? undefined : l10n.t('Selected value does not match any defined option'),
+        definition,
+      }
+    })
+
+    if (items.length === 0) {
+      void vscWindow.showInformationMessage(l10n.t('No settings available to display.'))
+      return
+    }
+
+    const picked = await vscWindow.showQuickPick(items, {
+      placeHolder: l10n.t('Select the setting you want to update'),
+    })
+
+    if (!picked) {
+      return
+    }
+
+    await this.presentOptionPicker(picked.definition)
+  }
+
+  private async presentOptionPicker(definition: SettingDefinition): Promise<void> {
+    const configuration = vscWorkspace.getConfiguration()
+    const inspect = configuration.inspect<unknown>(definition.id)
+    const currentValue = this.currentValueFor(definition, configuration, inspect)
+
+    const items: OptionQuickPickItem[] = definition.options.map((option) => {
+      const optionValue = this.coerceOptionValue(option.rawValue, inspect)
+      const isCurrent = areValuesEquivalent(currentValue, optionValue)
+      return {
+        label: option.label,
+        description: option.description,
+        picked: isCurrent,
+        detail: isCurrent ? l10n.t('Currently selected') : undefined,
+        option,
+      }
+    })
+
+    const selection = await vscWindow.showQuickPick(items, {
+      placeHolder: definition.label,
+    })
+
+    if (!selection) {
+      return
+    }
+
+    const selectedValue = this.coerceOptionValue(selection.option.rawValue, inspect)
+    if (areValuesEquivalent(currentValue, selectedValue)) {
+      return
+    }
+
+    await this.applyOptionSelection(definition, selection.option, inspect)
+  }
+  // #endregion UI
+  // #endregion Methods
 }

@@ -2,7 +2,7 @@
   "name": "vscode-quicky",
   "displayName": "VSCode Quicky - Quick Preferences/Customization Managing",
   "description": "Toggle preferences even any VS Code setting on/off from the editor title bar. Quicky manages preferences, settings and more.",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "publisher": "sourcebound",
   "author": "Sourcebound",
   "icon": "res/logo.png",
