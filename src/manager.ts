@@ -37,38 +37,38 @@ import {
 } from '@util/helper'
 
 /**
- * ExtensionManager is the primary controller for the VS Code extension.
- * @description Handles the core workflow and monitors VS Code configuration changes.
- * @implements {Disposable} Represents a resource that can free listeners or timers when disposed.
+ * ExtensionManager sınıfı, VSCode uzantısının ana yönetici sınıfıdır.
+ * @description Bu sınıf, uzantının temel işlevlerini yönetir ve VSCode'un yapılandırma değişikliklerini izler.
+ * @implements {Disposable} Olay dinleme veya bir zamanlayıcı gibi kaynakları serbest bırakabilen bir türü temsil eder.
  */
 export default class ExtensionManager implements Disposable {
   // #region Properties
   /**
-   * Setting definitions.
+   * Ayar tanımları.
    */
   private definitions: SettingDefinition[] = []
   /**
-   * Identifiers of the setting definitions.
+   * Ayar tanımlarının `ID`leri.
    */
   private configurationKeys: Set<string> = new Set<string>()
 
   /**
-   * Promise used while definitions are being reloaded.
+   * Ayar tanımlarının yeniden yüklenmesi için Promise.
    */
   private reloadPromise: Promise<void> | undefined
 
   /**
-   * Flag that determines whether definitions need to be reloaded.
+   * Ayar tanımlarının yeniden yüklenip yüklenmeme kararını kontrol eder.
    */
   private needsReload = true
 
   /**
-   * Indicates whether the manager has already been disposed.
+   * ExtensionManager'ın serbest bırakılıp bırakılmadığını kontrol eder.
    */
   private disposed = false
 
   /**
-   * Output channel.
+   * Çıktı kanalı.
    */
   private readonly outputChannel = vscWindow.createOutputChannel(EXTENSION_NAME)
 
@@ -113,8 +113,9 @@ export default class ExtensionManager implements Disposable {
   // #region Methods
 
   /**
-   * @summary Handles configuration change events.
-   * @param event The configuration change event to evaluate.
+   * @summary Yapılandırmadaki değişikliği tanımlayan eventi ele alır.
+   * @param event Yapılandırmadaki değişikliği tanımlayan event.
+   * @returns
    */
   public async configurationDidChange(event: ConfigurationChangeEvent): Promise<void> {
     if (event.affectsConfiguration(CONFIGURATION_NAME)) {
@@ -372,7 +373,7 @@ export default class ExtensionManager implements Disposable {
 
   // #region CommandIDs
   /**
-   * Command identifier: `quicky.showSettingsMenu`
+   * Konfigürasyon anahtarı: `quicky.showSettingsMenu`
    */
   public static SHOW_SETTINGS_MENU_COMMAND_ID = makeCommandId('showSettingsMenu')
   // #endregion CommandIDs

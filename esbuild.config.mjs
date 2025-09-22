@@ -1,4 +1,4 @@
-// ESM build configuration
+// ESM sürüm
 import esbuild from 'esbuild'
 
 const watch = process.argv.includes('--watch')

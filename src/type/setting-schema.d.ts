@@ -1,26 +1,26 @@
 // new api design
 
 interface QuickyConfigurationItemSchema {
-  /** VS Code configuration key, e.g., "typescript.referencesCodeLens.enabled" */
+  /** VS Code configuration anahtarı, örn: "typescript.referencesCodeLens.enabled" */
   key: string
 
-  /** Label displayed in the menu (falls back to `key` when omitted) */
+  /** Menüde gösterilecek `label` başlık (boş bırakılırsa `key` kullanılır) */
   label: string
 
-  /** Value configuration */
+  /** Değer yapılandırması */
   value: ValueConfiguration
 }
 
 interface ValueConfiguration {
-  /** Value type, e.g., "toggle", "number", "string", "color", "file", "directory", "enum" */
+  /** Değer türü, örn: "toggle", "number", "string", "color", "file", "directory", "enum" */
   type: string
 
-  /** Default value */
+  /** Varsayılan değer */
   default: unknown
 
-  /** Value labels, e.g., { "on": "On", "off": "Off" } */
+  /** Değer etiketleri, örn: { "on": "Açık", "off": "Kapalı" } */
   labels: Record<string, string>
 
-  /** Value mapping, e.g., { "on": true, "off": false } */
+  /** Değer eşleştirmesi, örn: { "on": true, "off": false } */
   mapping: Record<string, string>
 }

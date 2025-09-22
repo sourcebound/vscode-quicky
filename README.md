@@ -10,10 +10,13 @@ VSCode Quicky is a lightweight and fast Visual Studio Code extension that lets y
 - Track the history of your selections through the built-in output channel.
 
 ## Installation
+
 ### VS Code Marketplace
+
 Once the extension is published you can search for "VSCode Quicky" on the Marketplace and click **Install**.
 
 ### Manual Installation
+
 ```bash
 npm install
 npm run compile
@@ -22,12 +25,14 @@ npm run compile
 Then open the project folder in VS Code and run the **Launch Extension** target from the **Run and Debug** panel.
 
 ## Quick Start
+
 1. Open any file and click the Quicky icon in the top-right corner of the editor tab.
 2. From the **Quicky Settings** menu choose the **Manage Settings** command.
 3. Pick the setting you want to update from the first list and select the value to apply from the second list.
 4. Your choice takes effect immediately, is saved with the appropriate scope, and remains available from the command palette.
 
 ## Dynamic Setting Definitions
+
 You can add as many definitions as you like through the `quicky.settingDefinitions` setting. When the extension launches for the first time it writes a sample entry to the workspace settings file if the list is empty.
 
 Sample content (`.vscode/settings.json`):
@@ -60,8 +65,10 @@ You can add multiple definitions; the latest entry with the same `id` overrides 
 - Prefer the user scope for combinations you do not plan to share with the workspace.
 
 ## Contributing
+
 Use [GitHub Issues](https://github.com/yildirim/vscode-quicky/issues) for bug reports, suggestions, and pull requests. If you would like to share a new definition example or improve the docs, please open an issue.
 
 ## License
+
 This project is licensed under the [GNU Affero General Public License v3.0](https://github.com/sourcebound/vscode-quicky/blob/HEAD/LICENSE).
 Remember to review the license terms before using the code in your own projects.

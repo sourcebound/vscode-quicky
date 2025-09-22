@@ -2,8 +2,8 @@ import { ExtensionContext, window as vscWindow, workspace as vscWorkspace } from
 import ExtensionManager from './manager'
 
 /**
- * @summary Entry point of the extension. Imports the modular classes and helpers,
- * registers the commands, and wires the lifecycle.
+ * @summary Eklentinin giriş noktası. Modüler yapıya ayrılmış sınıf ve yardımcıları
+ * buradan içe aktarılır, komutlar kaydedilir.
  */
 export async function activate(context: ExtensionContext): Promise<void> {
   const manager = new ExtensionManager(context)
@@ -12,29 +12,29 @@ export async function activate(context: ExtensionContext): Promise<void> {
   await manager.init()
 
   /**
-   * @summary Registers the `onDidChangeConfiguration` listener.
-   * @description The listener fires whenever the VS Code configuration changes.
+   * @summary `onDidChangeConfiguration` komutunu kaydeder.
+   * @description `onDidChangeConfiguration` komutu, konfigürasyon değiştiğinde çağrılır.
    */
   const configurationListener = vscWorkspace.onDidChangeConfiguration(async (event) => {
     await manager.configurationDidChange(event)
   })
 
   /**
-   * @summary Registers the `onDidChangeActiveTextEditor` listener.
-   * @description The listener runs whenever the active editor instance changes.
+   * @summary `onDidChangeActiveTextEditor` komutunu kaydeder.
+   * @description `onDidChangeActiveTextEditor` komutu, editör değiştiğinde çağrılır.
    */
   const editorListener = vscWindow.onDidChangeActiveTextEditor(() => {
     void manager.activeResourceDidChange()
   })
 
   context.subscriptions.push(configurationListener, editorListener)
-  /** End of activation */
+  /** Aktivasyon sonu */
 }
 
 /**
- * @summary Registers the `deactivate` hook.
- * @description Invoked when the extension is being torn down. Use it to perform cleanup work.
+ * @summary `deactivate` komutunu kaydeder.
+ * @description `deactivate` komutu, eklentiyi devre dışı bırakır. Bu fonksiyon çağrıldığında eklenti devre dışı bırakılır.
  */
 export function deactivate() {
-  // Placeholder for extension shutdown logic.
+  // Eklenti devre dışı bırakıldığında yapılacak işlemler.
 }
