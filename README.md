@@ -3,6 +3,7 @@
 VSCode Quicky, Visual Studio Code editör başlığından CodeLens referanslarını ve seçtiğiniz diğer ayarları tek tıkla açıp kapatmanıza imkan tanıyan hafif ve hızlı bir eklentidir. JavaScript ve TypeScript projelerinde referans CodeLens satırlarını yönetirken aynı anda kendi özel ayarlarınızı da menüye ekleyebilirsiniz.
 
 ## Öne çıkan özellikler
+
 - Tek tıkla `typescript.referencesCodeLens.enabled` ve `javascript.referencesCodeLens.enabled` değerlerini değiştirin.
 - Herhangi bir VS Code ayarını, özel seçenekleriyle birlikte dinamik menüye ekleyin.
 - Aktif dosya veya çalışma alanına göre doğru scope'ta (workspace, folder, user) ayar kaydı oluşturun.
@@ -53,6 +54,7 @@ Eklentinin `quicky.settingDefinitions` ayarı üzerinden dilediğiniz kadar tan�
 Birden fazla tanım ekleyebilirsiniz; aynı `id` değerine sahip son kayıt önceki tanımı geçersiz kılar.
 
 ## İpuçları
+
 - Menüde görmeyi istemediğiniz ayarları `quicky.settingDefinitions` listesinden kaldırabilirsiniz.
 - Komutu klavyeden çalıştırmak için `Quicky: Ayarları Yönet` ifadesini komut paletinde aratabilirsiniz.
 - Çalışma alanınızda paylaşmak istemediğiniz ayar kombinasyonları için kullanıcı scope'unu tercih edebilirsiniz.

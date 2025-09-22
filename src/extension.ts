@@ -16,7 +16,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
    * @description `onDidChangeConfiguration` komutu, konfigürasyon değiştiğinde çağrılır.
    */
   const configurationListener = vscWorkspace.onDidChangeConfiguration(async (event) => {
-    await manager.handleConfigurationChange(event)
+    await manager.configurationDidChange(event)
   })
 
   /**
@@ -24,7 +24,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
    * @description `onDidChangeActiveTextEditor` komutu, editör değiştiğinde çağrılır.
    */
   const editorListener = vscWindow.onDidChangeActiveTextEditor(() => {
-    void manager.handleActiveResourceChange()
+    void manager.activeResourceDidChange()
   })
 
   context.subscriptions.push(configurationListener, editorListener)

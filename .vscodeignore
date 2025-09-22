@@ -25,7 +25,6 @@ node_modules/**
 !LICENSE.txt
 !out/**
 !res/**
-!res/logo.png
 
 **/.DS_Store
 PRD.md
