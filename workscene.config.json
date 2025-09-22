@@ -8,7 +8,7 @@
   "groups": [
     {
       "id": "c6b13162-7f19-4fa2-9d4b-a92b7172209e",
-      "name": "Grup",
+      "name": "Group",
       "files": [
         {
           "rel": "src/extension.ts",
@@ -28,7 +28,7 @@
       "children": [
         {
           "id": "aec3caeb-4107-4a10-a975-0f38625856f6",
-          "name": "Grup",
+          "name": "Group",
           "files": [],
           "children": [],
           "tags": [],

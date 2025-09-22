@@ -2,7 +2,7 @@
   "name": "vscode-quicky",
   "displayName": "VSCode Quicky - Quick Preferences/Customization Managing",
   "description": "Toggle preferences even any VS Code setting on/off from the editor title bar. Quicky manages preferences, settings and more.",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "publisher": "sourcebound",
   "author": "Sourcebound",
   "icon": "res/logo.png",
@@ -58,17 +58,17 @@
         "quicky.settingDefinitions": {
           "type": "array",
           "default": [],
-          "markdownDescription": "Dinamik menüde görüntülenecek ayar tanımlarını belirtir. Her öğe VS Code ayar anahtarını ve seçilebilir seçenekleri tarif eder.",
+          "markdownDescription": "Specifies the setting definitions that appear in the dynamic menu. Each entry describes the VS Code setting key and its selectable options.",
           "items": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string",
-                "description": "Güncellenecek ayarın tam anahtarı."
+                "description": "Full key of the setting that will be updated."
               },
               "label": {
                 "type": "string",
-                "description": "Menüde gösterilecek başlık (boş bırakılırsa id kullanılır)."
+                "description": "Title shown in the menu (falls back to the id when omitted)."
               },
               "options": {
                 "type": "array",
@@ -83,15 +83,15 @@
                         "boolean",
                         "null"
                       ],
-                      "description": "Ayar için yazılacak değer."
+                      "description": "Value that will be written for the setting."
                     },
                     "label": {
                       "type": "string",
-                      "description": "Kullanıcıya gösterilecek seçenek adı."
+                      "description": "Option label presented to the user."
                     },
                     "description": {
                       "type": "string",
-                      "description": "Seçenek hakkında kısa açıklama."
+                      "description": "Short description of the option."
                     }
                   },
                   "required": [
@@ -99,7 +99,7 @@
                   ],
                   "additionalProperties": false
                 },
-                "description": "Seçilebilir değerlerin listesi."
+                "description": "List of selectable values."
               },
               "defaultOptionValue": {
                 "type": [
@@ -108,7 +108,7 @@
                   "boolean",
                   "null"
                 ],
-                "description": "Ayar tanımlanmamışsa kullanılacak varsayılan değer."
+                "description": "Default value used when the setting has not been defined."
               }
             },
             "required": [
@@ -123,7 +123,7 @@
     "submenus": [
       {
         "id": "quicky.dynamicSettingsSubmenu",
-        "label": "Quicky Ayarları",
+        "label": "Quicky Settings",
         "icon": {
           "light": "res/icon-light.svg",
           "dark": "res/icon-dark.svg"
@@ -133,7 +133,7 @@
     "commands": [
       {
         "command": "quicky.showSettingsMenu",
-        "title": "Ayarları Yönet",
+        "title": "Manage Settings",
         "icon": {
           "light": "res/icon-light.svg",
           "dark": "res/icon-dark.svg"

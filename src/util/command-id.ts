@@ -1,5 +1,5 @@
 import { EXTENSION_ID } from '@lib/constants'
 
-// Komut için, extension'un kendi kimliği ile birleştirilmiş benzersiz bir kimliği oluşturur.
+// Produces a unique command identifier by prefixing with the extension id.
 export const makeCommandId = <T extends string>(commandName: T): T =>
   (EXTENSION_ID + '.' + commandName) as T

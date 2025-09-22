@@ -1,67 +1,67 @@
 # VSCode Quicky
 
-VSCode Quicky, Visual Studio Code editör başlığından CodeLens referanslarını ve seçtiğiniz diğer ayarları tek tıkla açıp kapatmanıza imkan tanıyan hafif ve hızlı bir eklentidir. JavaScript ve TypeScript projelerinde referans CodeLens satırlarını yönetirken aynı anda kendi özel ayarlarınızı da menüye ekleyebilirsiniz.
+VSCode Quicky is a lightweight and fast Visual Studio Code extension that lets you toggle CodeLens references and any other setting you add to the menu from the editor title bar with a single click. While you manage reference CodeLens rows in JavaScript and TypeScript projects, you can also surface your own custom settings alongside them.
 
-## Öne çıkan özellikler
+## Key Features
 
-- Tek tıkla `typescript.referencesCodeLens.enabled` ve `javascript.referencesCodeLens.enabled` değerlerini değiştirin.
-- Herhangi bir VS Code ayarını, özel seçenekleriyle birlikte dinamik menüye ekleyin.
-- Aktif dosya veya çalışma alanına göre doğru scope'ta (workspace, folder, user) ayar kaydı oluşturun.
-- Seçimlerinizin kaydını takip etmek için dahili çıktı panelini kullanın.
+- Toggle `typescript.referencesCodeLens.enabled` and `javascript.referencesCodeLens.enabled` with one click.
+- Add any VS Code setting to the dynamic menu together with its custom options.
+- Persist updates in the correct scope (workspace, folder, user) based on the active file or workspace.
+- Track the history of your selections through the built-in output channel.
 
-## Kurulum
+## Installation
 ### VS Code Marketplace
-Eklentiyi yayınlandıktan sonra Marketplace üzerinden "VSCode Quicky" yazarak bulabilir ve **Install** butonuna tıklayabilirsiniz.
+Once the extension is published you can search for "VSCode Quicky" on the Marketplace and click **Install**.
 
-### Manuel kurulum
+### Manual Installation
 ```bash
 npm install
 npm run compile
 ```
 
-Ardından proje klasörünü VS Code ile açın ve **Run and Debug** panelinden "Launch Extension" hedefini çalıştırın.
+Then open the project folder in VS Code and run the **Launch Extension** target from the **Run and Debug** panel.
 
-## Hızlı başlangıç
-1. Herhangi bir dosyayı açın ve editör sekmesinin sağ üst köşesindeki Quicky ikonuna tıklayın.
-2. Açılan "Quicky Ayarları" menüsünden **Ayarları Yönet** komutunu seçin.
-3. İlk listeden değiştirmek istediğiniz ayarı, ikinci listeden de uygulanacak değeri belirleyin.
-4. Seçiminiz anında yürürlüğe girer; uygun scope altında saklanır ve komut paletinden tekrar erişilebilir.
+## Quick Start
+1. Open any file and click the Quicky icon in the top-right corner of the editor tab.
+2. From the **Quicky Settings** menu choose the **Manage Settings** command.
+3. Pick the setting you want to update from the first list and select the value to apply from the second list.
+4. Your choice takes effect immediately, is saved with the appropriate scope, and remains available from the command palette.
 
-## Dinamik ayar tanımları
-Eklentinin `quicky.settingDefinitions` ayarı üzerinden dilediğiniz kadar tanım ekleyebilirsiniz. Eklenti ilk çalıştığında ayar boşsa workspace ayar dosyasına örnek bir kayıt yazar.
+## Dynamic Setting Definitions
+You can add as many definitions as you like through the `quicky.settingDefinitions` setting. When the extension launches for the first time it writes a sample entry to the workspace settings file if the list is empty.
 
-Örnek içerik (`.vscode/settings.json`):
+Sample content (`.vscode/settings.json`):
 
 ```json
 [
   {
     "id": "workbench.experimental.share.enabled",
-    "label": "Paylaş butonu görünürlüğü",
+    "label": "Share button visibility",
     "options": [
-      { "value": true, "label": "Görünür" },
-      { "value": false, "label": "Gizli" }
+      { "value": true, "label": "Visible" },
+      { "value": false, "label": "Hidden" }
     ],
     "defaultOptionValue": true
   }
 ]
 ```
 
-- `id`: Güncellemek istediğiniz ayarın tam anahtarı.
-- `label`: Menüde gösterilecek başlık (boş bırakılırsa `id` değeri kullanılır).
-- `options`: Kullanıcıya sunulacak seçenekler; `value` alanı `string`, `number`, `boolean` ya da `null` olabilir.
-- `defaultOptionValue`: Ayar tanımlanmamışsa kullanılacak varsayılan değer (isteğe bağlı).
+- `id`: The exact key of the setting that will be updated.
+- `label`: The title displayed in the menu (falls back to `id` if omitted).
+- `options`: The options presented to users; the `value` can be a `string`, `number`, `boolean`, or `null`.
+- `defaultOptionValue`: The value to use when a setting definition has not been saved yet (optional).
 
-Birden fazla tanım ekleyebilirsiniz; aynı `id` değerine sahip son kayıt önceki tanımı geçersiz kılar.
+You can add multiple definitions; the latest entry with the same `id` overrides the previous one.
 
-## İpuçları
+## Tips
 
-- Menüde görmeyi istemediğiniz ayarları `quicky.settingDefinitions` listesinden kaldırabilirsiniz.
-- Komutu klavyeden çalıştırmak için `Quicky: Ayarları Yönet` ifadesini komut paletinde aratabilirsiniz.
-- Çalışma alanınızda paylaşmak istemediğiniz ayar kombinasyonları için kullanıcı scope'unu tercih edebilirsiniz.
+- Remove entries from `quicky.settingDefinitions` if you do not want them to appear in the menu.
+- Trigger the command from the keyboard by searching for `Quicky: Manage Settings` in the command palette.
+- Prefer the user scope for combinations you do not plan to share with the workspace.
 
-## Katkıda bulunma
-Hata raporları, öneriler ve pull request'ler için [GitHub Issues](https://github.com/yildirim/vscode-quicky/issues) sayfasını kullanabilirsiniz. Yeni bir tanım örneği paylaşmak veya dokümantasyona katkıda bulunmak isterseniz lütfen bir issue açın.
+## Contributing
+Use [GitHub Issues](https://github.com/yildirim/vscode-quicky/issues) for bug reports, suggestions, and pull requests. If you would like to share a new definition example or improve the docs, please open an issue.
 
-## Lisans
-Bu proje [GNU Affero General Public License v3.0](https://github.com/sourcebound/vscode-quicky/blob/HEAD/LICENSE) ile lisanslanmıştır.
-Kodu kendi projelerinizde kullanırken lisans koşullarını göz önünde bulundurmayı unutmayın.
+## License
+This project is licensed under the [GNU Affero General Public License v3.0](https://github.com/sourcebound/vscode-quicky/blob/HEAD/LICENSE).
+Remember to review the license terms before using the code in your own projects.

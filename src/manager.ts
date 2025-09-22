@@ -37,38 +37,38 @@ import {
 } from '@util/helper'
 
 /**
- * ExtensionManager sınıfı, VSCode uzantısının ana yönetici sınıfıdır.
- * @description Bu sınıf, uzantının temel işlevlerini yönetir ve VSCode'un yapılandırma değişikliklerini izler.
- * @implements {Disposable} Olay dinleme veya bir zamanlayıcı gibi kaynakları serbest bırakabilen bir türü temsil eder.
+ * ExtensionManager is the primary controller for the VS Code extension.
+ * @description Handles the core workflow and monitors VS Code configuration changes.
+ * @implements {Disposable} Represents a resource that can free listeners or timers when disposed.
  */
 export default class ExtensionManager implements Disposable {
   // #region Properties
   /**
-   * Ayar tanımları.
+   * Setting definitions.
    */
   private definitions: SettingDefinition[] = []
   /**
-   * Ayar tanımlarının `ID`leri.
+   * Identifiers of the setting definitions.
    */
   private configurationKeys: Set<string> = new Set<string>()
 
   /**
-   * Ayar tanımlarının yeniden yüklenmesi için Promise.
+   * Promise used while definitions are being reloaded.
    */
   private reloadPromise: Promise<void> | undefined
 
   /**
-   * Ayar tanımlarının yeniden yüklenip yüklenmeme kararını kontrol eder.
+   * Flag that determines whether definitions need to be reloaded.
    */
   private needsReload = true
 
   /**
-   * ExtensionManager'ın serbest bırakılıp bırakılmadığını kontrol eder.
+   * Indicates whether the manager has already been disposed.
    */
   private disposed = false
 
   /**
-   * Çıktı kanalı.
+   * Output channel.
    */
   private readonly outputChannel = vscWindow.createOutputChannel(EXTENSION_NAME)
 
@@ -89,7 +89,7 @@ export default class ExtensionManager implements Disposable {
       async () => {
         await this.reload(false)
         if (this.definitions.length === 0) {
-          void vscWindow.showInformationMessage(l10n.t('Görüntülenecek ayar bulunmuyor.'))
+          void vscWindow.showInformationMessage(l10n.t('No settings available to display.'))
           return
         }
         await this.showPicker()
@@ -113,9 +113,8 @@ export default class ExtensionManager implements Disposable {
   // #region Methods
 
   /**
-   * @summary Yapılandırmadaki değişikliği tanımlayan eventi ele alır.
-   * @param event Yapılandırmadaki değişikliği tanımlayan event.
-   * @returns
+   * @summary Handles configuration change events.
+   * @param event The configuration change event to evaluate.
    */
   public async configurationDidChange(event: ConfigurationChangeEvent): Promise<void> {
     if (event.affectsConfiguration(CONFIGURATION_NAME)) {
@@ -207,7 +206,7 @@ export default class ExtensionManager implements Disposable {
             ? (rawDefinition as RawSettingDefinition).id
             : undefined
         this.outputChannel.appendLine(
-          l10n.t('[{0}] Ayar tanımı geçersiz (id: {1}).', EXTENSION_NAME, id as string),
+          l10n.t('[{0}] Setting definition is invalid (id: {1}).', EXTENSION_NAME, id as string),
         )
       }
     }
@@ -231,13 +230,13 @@ export default class ExtensionManager implements Disposable {
       )
       this.needsReload = true
       this.outputChannel.appendLine(
-        l10n.t('[{0}] Kullanıcı ayarlarına varsayılan tanımlar eklendi.', EXTENSION_NAME),
+        l10n.t('[{0}] Default definitions added to user settings.', EXTENSION_NAME),
       )
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error)
       this.outputChannel.appendLine(
         l10n.t(
-          '[{0}] Kullanıcı ayarlarına varsayılan tanımlar kaydedilemedi: {1}',
+          '[{0}] Failed to save default definitions to user settings: {1}',
           EXTENSION_NAME,
           message,
         ),
@@ -254,19 +253,21 @@ export default class ExtensionManager implements Disposable {
       const option = this.optionMatching(definition, currentValue, inspect)
       return {
         label: definition.label,
-        description: option ? l10n.t('Aktif: {0}', option.label) : undefined,
-        detail: option ? undefined : l10n.t('Seçili değer tanımlı seçeneklerle eşleşmiyor'),
+        description: option ? l10n.t('Active: {0}', option.label) : undefined,
+        detail: option
+          ? undefined
+          : l10n.t('Selected value does not match any defined option'),
         definition,
       }
     })
 
     if (items.length === 0) {
-      void vscWindow.showInformationMessage(l10n.t('Görüntülenecek ayar bulunmuyor.'))
+      void vscWindow.showInformationMessage(l10n.t('No settings available to display.'))
       return
     }
 
     const picked = await vscWindow.showQuickPick(items, {
-      placeHolder: l10n.t('Güncellemek istediğiniz ayarı seçin'),
+      placeHolder: l10n.t('Select the setting you want to update'),
     })
 
     if (!picked) {
@@ -288,7 +289,7 @@ export default class ExtensionManager implements Disposable {
         label: option.label,
         description: option.description,
         picked: isCurrent,
-        detail: isCurrent ? 'Şu anda seçili' : undefined,
+        detail: isCurrent ? l10n.t('Currently selected') : undefined,
         option,
       }
     })
@@ -371,7 +372,7 @@ export default class ExtensionManager implements Disposable {
 
   // #region CommandIDs
   /**
-   * Konfigürasyon anahtarı: `quicky.showSettingsMenu`
+   * Command identifier: `quicky.showSettingsMenu`
    */
   public static SHOW_SETTINGS_MENU_COMMAND_ID = makeCommandId('showSettingsMenu')
   // #endregion CommandIDs

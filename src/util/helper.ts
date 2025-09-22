@@ -194,10 +194,10 @@ export function extractSampleValue(inspect: ConfigurationInspection<unknown> | u
 }
 
 /**
- * Örnek değere uygun değeri döndürür.
- * @param value Değer. Boolean, number, string veya null/undefined değerleri olabilir.
- * @param sample Örnek değer. Boolean, number veya string değerleri olabilir.
- * @returns Örnek değere uygun değer. Undefined veya null ise, string değerini döndürür.
+ * Returns the value coerced to match the provided sample.
+ * @param value The source value. Accepts boolean, number, string, or null/undefined inputs.
+ * @param sample The sample value. Accepts boolean, number, or string inputs.
+ * @returns A value aligned with the sample. When sample is undefined/null, returns the string form.
  */
 export function coerceToMatchSample(value: ValueType, sample: unknown): ValueType {
   if (sample === undefined || sample === null) {

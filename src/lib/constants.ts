@@ -12,10 +12,10 @@ export const CONFIGURATION_NAME: string = `${CONFIG_SECTION}.${CONFIG_SETTING_DE
 export const DEFAULT_CONFIG_DEFINITIONS: RawSettingDefinition[] = [
   {
     id: 'workbench.experimental.share.enabled',
-    label: 'Paylaş butonu görünürlüğü',
+    label: 'Share button visibility',
     options: [
-      { value: true, label: 'Görünür' },
-      { value: false, label: 'Gizli' },
+      { value: true, label: 'Visible' },
+      { value: false, label: 'Hidden' },
     ],
     defaultOptionValue: true,
   },
@@ -24,19 +24,19 @@ export const DEFAULT_CONFIG_DEFINITIONS: RawSettingDefinition[] = [
 export const RAW_BUILTIN_DEFINITIONS: RawSettingDefinition[] = [
   {
     id: 'typescript.referencesCodeLens.enabled',
-    label: 'TypeScript Referans CodeLens',
+    label: 'TypeScript Reference CodeLens',
     options: [
-      { value: true, label: 'Açık' },
-      { value: false, label: 'Kapalı' },
+      { value: true, label: 'On' },
+      { value: false, label: 'Off' },
     ],
     defaultOptionValue: true,
   },
   {
     id: 'javascript.referencesCodeLens.enabled',
-    label: 'JavaScript Referans CodeLens',
+    label: 'JavaScript Reference CodeLens',
     options: [
-      { value: true, label: 'Açık' },
-      { value: false, label: 'Kapalı' },
+      { value: true, label: 'On' },
+      { value: false, label: 'Off' },
     ],
     defaultOptionValue: true,
   },

@@ -3,7 +3,7 @@ import SettingDefinition from './setting-definition'
 import SettingOptionDefinition from './setting-option-definition'
 
 /**
- * @abstract Bir liste içerisinden seçilebilen bir öğeyi temsil eder.
+ * @abstract Represents an item that can be selected from a list.
  */
 interface DefinitionQuickPickItem extends QuickPickItem {
   definition: SettingDefinition
